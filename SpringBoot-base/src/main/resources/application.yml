@@ -15,5 +15,6 @@ mybatis-plus:
     logic-delete-value: 1
     logic-not-delete-value: 0
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  mapper-locations: classpath:/mapper/*/*Mapper.xml
 server:
   port: 8800
