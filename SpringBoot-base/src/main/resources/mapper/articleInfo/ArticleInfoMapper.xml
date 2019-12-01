@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soplong.dao.ArticleInfoMapper">
+
+    <select id="articleList" parameterType="map" resultType="com.soplong.domain.ArticleInfo">
+        SELECT * FROM `article_info` where del_flag = 0 and is_post = 1
+    </select>
+
+    <select id="getArticleDetail" resultType="com.soplong.domain.vo.ArticleDetail">
+        SELECT
+            a.*,
+            c.content
+        FROM
+            article_info a
+            JOIN article_content c ON c.article_id = a.id
+        WHERE
+            a.del_flag = 0
+            AND a.id = #{articleId}
+            AND a.is_post = 1
+    </select>
+
+</mapper>

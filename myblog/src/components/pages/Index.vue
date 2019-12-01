@@ -76,14 +76,15 @@ export default {
       // console.log(`每页 ${val} 条`);
       // this.pageSize = val;
     },
-    getData(pageNum, pageSize) {
+    getData(currentPage, pageSize) {
       this.axios
         .get("/api/article/info/getArticleList", {
-          params: { state: 1, pageNum, pageSize }
+          params: { state: 1, currentPage, pageSize }
         })
         .then(response => {
-          this.articleList = response.data[0];
-          this.count = response.data[1][0].count;
+          const data = response.data.data;
+          this.articleList = data.records;
+          this.count = data.total;
           this.flag = this.articleList.length < 1 ? 0 : 1;
           for (let item of this.articleList) {
             let str = item.type

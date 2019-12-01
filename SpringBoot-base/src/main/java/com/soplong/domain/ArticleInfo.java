@@ -49,4 +49,14 @@ public class ArticleInfo implements Serializable {
      * 图片路径
      */
     private String imgUrl;
+
+    /**
+     * 是否发布 【0】未发布 【1】已发布
+     */
+    private Integer isPost;
+
+    /**
+     * 发布时间
+     */
+    private Date postTime;
 }

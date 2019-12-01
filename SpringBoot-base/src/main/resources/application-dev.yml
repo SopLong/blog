@@ -3,7 +3,7 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.19.1.61:3306/bolgs?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/bolgs?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true&allowPublicKeyRetrieval=true
     druid:
       #      初始化最大最小值
       max-active: 20

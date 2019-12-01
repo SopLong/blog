@@ -19,6 +19,7 @@ public class ResultData {
         this.data = data;
     }
 
+
     public Integer getCode() {
         return code;
     }

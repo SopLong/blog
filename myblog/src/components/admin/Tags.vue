@@ -61,7 +61,7 @@ export default {
         return;
       }
       this.axios
-        .post("/api/admin/insertTag", { name: inputValue })
+        .post("/api/article/tag/add", { name: inputValue })
         .then(response => {
           this.$message({
             message: "添加成功",

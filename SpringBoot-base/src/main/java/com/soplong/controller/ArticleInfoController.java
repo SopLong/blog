@@ -6,12 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.soplong.config.BaseController;
 import com.soplong.config.ResultData;
 import com.soplong.domain.ArticleInfo;
+import com.soplong.domain.vo.ArticleDetail;
 import com.soplong.service.ArticleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/article/info")
@@ -20,16 +20,31 @@ public class ArticleInfoController extends BaseController {
     @Autowired
     private ArticleInfoService articleInfoService;
 
+    /**
+     * 获取博文列表
+     *
+     * @return
+     */
     @GetMapping("getArticleList")
-    public ResultData getArticle(@RequestParam int pageNum, @RequestParam int pageSize) {
+    public ResultData getArticle() {
+        Map<String, Object> reqMap = getRequestParams();
+        Page articleList = articleInfoService.articleList(reqMap, getPage());
+        return new ResultData(articleList);
+    }
 
-        packParams();
+    /**
+     * 获取博客详情
+     *
+     * @param articleId 博客ID
+     * @return
+     */
+    @GetMapping("articleDetail/{articleId}")
+    public ResultData articleDetail(@PathVariable int articleId) {
+        ArticleDetail articleDetail = articleInfoService.getArticleDetail(articleId);
+        return new ResultData(articleDetail);
+    }
 
-        Page page = new Page();
-        page.setCurrent(pageNum);
-        page.setSize(pageSize);
-        IPage pa = articleInfoService.page(page, new QueryWrapper<ArticleInfo>().eq("del_flag", 0));
-
-        return new ResultData(pa.getRecords());
+    public ResultData addArticle(){
+        return new ResultData();
     }
 }

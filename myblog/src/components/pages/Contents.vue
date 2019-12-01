@@ -5,12 +5,12 @@
       <div class="detail">
         <h1 class="detail-title">{{article.title}}</h1>
         <div class="detail-content">
-          <p v-html="article.shtml"></p>
+          <p v-html="article.content"></p>
         </div>
         <p class="detail-tags"></p>
         <div class="detail-admin">
-          <p>发布于 {{article.post_time | formatDate('yyyy-MM-dd')}}</p>
-          <p>浏览{{article.view}}次</p>
+          <p>发布于 {{article.postTime | formatDate('yyyy-MM-dd')}}</p>
+          <p>浏览{{article.traffic}}次</p>
         </div>
         <div>
           <el-tag
@@ -117,24 +117,21 @@ export default {
     }
   },
   mounted() {
-    this.username = sessionStorage.getItem("username") || "";
-    if (this.username.length > 0) {
-      this.islogin = true;
-    }
+    // this.username = sessionStorage.getItem("username") || "";
+    // if (this.username.length > 0) {
+    //   this.islogin = true;
+    // }
     this.article = this.$route.query.article;
-    let str = this.article.type
-      .substring(1, this.article.type.length - 1)
-      .replace(/\"/g, "");
-    this.tags = str.split(",");
-    this.commentList = JSON.parse(this.article.comments) || [];
+    // let str = this.article.type
+    //   .substring(1, this.article.type.length - 1)
+    //   .replace(/\"/g, "");
+    // this.tags = str.split(",");
+    // this.commentList = JSON.parse(this.article.comments) || [];
     this.axios
-      .post("/api/updateCount", {
-        view: this.article.view + 1,
-        count: this.commentList.length,
-        id: this.article.id
-      })
+      .get(`/api//article/info/articleDetail/${this.article.id}`)
       .then(response => {
-        // console.log(response)
+        this.article = response.data.data;
+        console.log( this.article)
       })
       .catch(error => {
         this.$message.error("服务器错误");
