@@ -46,35 +46,36 @@ export default {
           type: "warning"
         });
       } else {
-        sessionStorage.setItem("username", "123");
-              sessionStorage.setItem("token","123");
-        this.$router.push({
-                path: "/admin/newEssay" //跳转的路径
-              });
-        // this.axios
-        //   .post("/api/userLogin", {
-        //     username: this.username,
-        //     password: this.$md5(this.password)
-        //   })
-        //   .then(response => {
-        //     if (response.data.status == true) {
-        //       this.$message({
-        //         message: "登录成功",
-        //         type: "success"
-        //       });
-        //       sessionStorage.setItem("username", this.username);
-        //       sessionStorage.setItem("token",response.data.token);
-        //       this.$router.push({
+        // sessionStorage.setItem("username", "123");
+        //       sessionStorage.setItem("token","123");
+        // this.$router.push({
         //         path: "/admin/newEssay" //跳转的路径
         //       });
-        //     } else {
-        //       this.$message.error(response.data.msg);
-        //     }
-        //   })
-        //   .catch(error => {
-        //     this.$message.error("服务器错误");
-        //     console.log(error);
-        //   });
+        this.axios
+          .post("/api/sys/login", {
+            name: this.username,
+            // password: this.$md5(this.password)
+            password: this.password
+          })
+          .then(response => {
+            if (response.data.code == 200) {
+              this.$message({
+                message: "登录成功",
+                type: "success"
+              });
+              sessionStorage.setItem("username", this.username);
+              sessionStorage.setItem("token",response.data.token);
+              this.$router.push({
+                path: "/admin/newEssay" //跳转的路径
+              });
+            } else {
+              this.$message.error(response.data.msg);
+            }
+          })
+          .catch(error => {
+            this.$message.error("服务器错误");
+            console.log(error);
+          });
       }
     }
   }

@@ -1,13 +1,10 @@
-package com.soplong.controller;
+package com.soplong.controller.article;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.soplong.config.BaseController;
 import com.soplong.config.ResultData;
-import com.soplong.domain.ArticleInfo;
-import com.soplong.domain.vo.ArticleDetail;
-import com.soplong.service.ArticleInfoService;
+import com.soplong.domain.article.vo.ArticleDetailVO;
+import com.soplong.service.article.ArticleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,11 +37,18 @@ public class ArticleInfoController extends BaseController {
      */
     @GetMapping("articleDetail/{articleId}")
     public ResultData articleDetail(@PathVariable int articleId) {
-        ArticleDetail articleDetail = articleInfoService.getArticleDetail(articleId);
+        ArticleDetailVO articleDetail = articleInfoService.getArticleDetail(articleId);
         return new ResultData(articleDetail);
     }
 
-    public ResultData addArticle(){
+    /**
+     * 新建博文
+     * @param articleDetailVO
+     * @return
+     */
+    @PostMapping("add")
+    public ResultData addArticle(@RequestBody ArticleDetailVO articleDetailVO){
+        articleInfoService.addArticle(articleDetailVO);
         return new ResultData();
     }
 }

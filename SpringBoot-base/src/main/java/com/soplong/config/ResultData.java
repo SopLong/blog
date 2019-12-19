@@ -1,7 +1,9 @@
 package com.soplong.config;
 
+import com.soplong.exception.ErrorResponseEntity;
+
 public class ResultData {
-    private Integer code;
+    private Integer code = ErrorResponseEntity.SUCCESS.getCode();
     private String msg;
     private Object data;
 

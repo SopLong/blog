@@ -19,7 +19,7 @@ export default {
   components: { Header, Footer },
   mounted() {
     this.axios
-      .get("/api/admin/getTagAll")
+      .get("/api/article/tag/getTagAll")
       .then(response => {
         this.tags = response.data;
       })

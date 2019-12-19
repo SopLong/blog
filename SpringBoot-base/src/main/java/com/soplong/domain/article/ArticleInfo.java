@@ -1,4 +1,4 @@
-package com.soplong.domain;
+package com.soplong.domain.article;
 
 import lombok.Data;
 

@@ -1,14 +1,14 @@
-package com.soplong.service;
+package com.soplong.service.article;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.soplong.domain.ArticleTag;
+import com.soplong.domain.article.ArticleTag;
 
 public interface ArticleTagService extends IService<ArticleTag> {
     /**
      * 新增标签
      * @param articleTag
      */
-    void add(ArticleTag articleTag);
+    void addTag(ArticleTag articleTag);
 
     /**
      * 删除标签

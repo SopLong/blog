@@ -1,7 +1,16 @@
 <template>
   <section class="blog-body">
     <div class="admin-publish">
-      <el-input v-model="title" placeholder="文章标题" autofocus></el-input>
+      <el-row style="margin-bottom:20px">
+        <el-col>
+          <el-input v-model="title" placeholder="文章标题" autofocus></el-input>
+        </el-col>
+      </el-row>
+      <el-row style="margin-bottom:20px">
+        <el-col>
+          <el-input v-model="summary" placeholder="文章简介" autofocus></el-input>
+        </el-col>
+      </el-row>
       <div id="editor" style="text-align:left"></div>
       <mavon-editor
         v-model="context"
@@ -19,7 +28,7 @@
             placeholder="请选择标签"
             style="width:100%"
           >
-            <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.name"></el-option>
+            <el-option v-for="item in options" :key="item.id" :label="item.tagName" :value="item.id"></el-option>
           </el-select>
         </el-col>
         <el-col :span="6" :offset="2">
@@ -37,6 +46,7 @@ export default {
   data() {
     return {
       title: "",
+      summary:"",
       context: "", //输入的数据
       toolbars: {
         bold: true, // 粗体
@@ -85,13 +95,14 @@ export default {
       } else {
         let html = this.$refs.md.d_render;
         this.axios
-          .post("/api/admin/addArticle", {
+          .post("/api//article/info/add", {
             username: this.username,
             title: this.title,
-            content: this.context,
-            html:html,
-            tags: JSON.stringify(this.tags),
-            state:1
+            summary:this.summary,
+            content: this.html,
+            tags: this.tags,
+            // tags: JSON.stringify(this.tags),
+            isPost:1
           })
           .then(response => {
             if ((response.data.status == true)) {
@@ -181,9 +192,9 @@ export default {
     // console.log(window.document.getElementsByClassName('v-show-content-html')[0].innerHTML())
     this.username = sessionStorage.getItem("username");
     this.axios
-      .get("/api/admin/getTagAll")
+      .get("/api/article/tag/getTagAll")
       .then(response => {
-        let data = response.data;
+        let data = response.data.data;
         this.options = data;
       })
       .catch(error => {

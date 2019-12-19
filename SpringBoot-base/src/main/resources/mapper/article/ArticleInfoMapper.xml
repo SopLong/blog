@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.soplong.dao.ArticleInfoMapper">
+<mapper namespace="com.soplong.dao.article.ArticleInfoMapper">
 
-    <select id="articleList" parameterType="map" resultType="com.soplong.domain.ArticleInfo">
+    <select id="articleList" parameterType="map" resultType="com.soplong.domain.article.ArticleInfo">
         SELECT * FROM `article_info` where del_flag = 0 and is_post = 1
     </select>
 
-    <select id="getArticleDetail" resultType="com.soplong.domain.vo.ArticleDetail">
+    <select id="getArticleDetail" resultType="com.soplong.domain.article.vo.ArticleDetailVO">
         SELECT
             a.*,
             c.content

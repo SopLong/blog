@@ -1,10 +1,10 @@
-package com.soplong.service;
+package com.soplong.service.article;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.soplong.domain.ArticleInfo;
-import com.soplong.domain.vo.ArticleDetail;
+import com.soplong.domain.article.ArticleInfo;
+import com.soplong.domain.article.vo.ArticleDetailVO;
 
 import java.util.Map;
 
@@ -17,5 +17,11 @@ public interface ArticleInfoService extends IService<ArticleInfo> {
      * @param articleId
      * @return
      */
-    ArticleDetail getArticleDetail(int articleId);
+    ArticleDetailVO getArticleDetail(int articleId);
+
+    /**
+     * 新建博文
+     * @param articleDetailVO
+     */
+    void addArticle(ArticleDetailVO articleDetailVO);
 }

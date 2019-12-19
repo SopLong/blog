@@ -61,9 +61,15 @@ export default {
         return;
       }
       this.axios
-        .post("/api/article/tag/add", { name: inputValue })
+        .post("/api/article/tag/add", { tagName: inputValue })
         .then(response => {
+        if(response.data.code !== 200){
           this.$message({
+            message: response.data.msg,
+            type: 'warning'
+          });
+        }else{
+         this.$message({
             message: "添加成功",
             type: "success"
           });
@@ -71,24 +77,25 @@ export default {
           if (inputValue) {
             this.Tags.push(inputValue);
           }
-          this.inputVisible = false;
-          this.inputValue = "";
-        })
-        .catch(error => {
+            this.inputVisible = false;
+            this.inputValue = "";
+          }
+        }).catch(error => {
           console.log(error);
         });
     }
   },
   mounted() {
     this.axios
-      .get("/api/admin/getTagAll")
+      .get("/api/article/tag/getTagAll")
       .then(response => {
-        let data = response.data;
-        let tags = data.map(v => v.name);
+        let data = response.data.data;
+        let tags = data.map(v => v.tagName);
         this.Tags = tags;
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response)
+        toastr.error(error.response.data.message);
       });
   }
 };

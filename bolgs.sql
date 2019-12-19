@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 01/12/2019 22:38:24
+ Date: 20/12/2019 07:27:00
 */
 
 SET NAMES utf8mb4;
@@ -85,7 +85,7 @@ CREATE TABLE `article_info`  (
 INSERT INTO `article_info` VALUES (1, '我的第一遍博客', '我的第一篇博客简介', 1, NULL, '2019-08-19 21:42:55', '2019-08-28 20:18:17', 1, 'https://588ku.com/sheyingtu/4323.html', 0, NULL);
 INSERT INTO `article_info` VALUES (2, '标题', '简介', 0, NULL, '2019-08-19 21:47:38', '2019-08-28 20:18:14', 1, 'https://588ku.com/sheyingtu/4323.html', 0, NULL);
 INSERT INTO `article_info` VALUES (3, '标题', '简介', 0, NULL, '2019-08-19 21:50:25', '2019-08-28 20:18:17', 1, 'https://588ku.com/sheyingtu/4323.html', 0, NULL);
-INSERT INTO `article_info` VALUES (4, '11', '22', 0, NULL, '2019-08-19 22:13:44', '2019-08-28 20:20:00', 0, 'http://img.1ppt.com/uploads/allimg/1901/1_190115152633_1.JPG', 0, NULL);
+INSERT INTO `article_info` VALUES (4, '11', '22', 0, NULL, '2019-08-19 22:13:44', '2019-12-02 21:55:33', 0, 'http://img.1ppt.com/uploads/allimg/1901/1_190115152633_1.JPG', 1, NULL);
 INSERT INTO `article_info` VALUES (5, '22', '33', 0, NULL, '2019-08-19 22:16:00', '2019-08-28 20:19:58', 0, 'http://img.1ppt.com/uploads/allimg/1901/1_190109165905_1.JPG', 0, NULL);
 INSERT INTO `article_info` VALUES (6, '33', '44', 0, NULL, '2019-08-19 22:16:33', '2019-08-28 20:18:17', 1, 'https://588ku.com/sheyingtu/4323.html', 0, NULL);
 INSERT INTO `article_info` VALUES (7, 'asd', 'rfsd', 0, NULL, '2019-08-19 22:17:52', '2019-08-28 20:18:17', 1, 'https://588ku.com/sheyingtu/4323.html', 0, NULL);
@@ -136,9 +136,16 @@ CREATE TABLE `article_tag`  (
   `create_user` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   `update_user` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
-  `del__flag` int(1) NULL DEFAULT 0 COMMENT '删除标记 【0】正常 【1】删除',
-  PRIMARY KEY (`id`, `tag_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `del_flag` int(1) NULL DEFAULT 0 COMMENT '删除标记 【0】正常 【1】删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of article_tag
+-- ----------------------------
+INSERT INTO `article_tag` VALUES (1, 'java', '2019-12-08 20:13:00', NULL, '2019-12-08 20:13:00', NULL, 0);
+INSERT INTO `article_tag` VALUES (2, 'jaba', '2019-12-08 21:33:27', NULL, '2019-12-08 21:33:27', NULL, 0);
+INSERT INTO `article_tag` VALUES (3, 'java1', '2019-12-11 20:51:10', NULL, '2019-12-11 20:51:10', NULL, 0);
 
 -- ----------------------------
 -- Table structure for message

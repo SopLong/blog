@@ -1,11 +1,11 @@
-package com.soplong.service.impl;
+package com.soplong.service.article.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.soplong.dao.ArticleTagMapper;
-import com.soplong.domain.ArticleTag;
+import com.soplong.dao.article.ArticleTagMapper;
+import com.soplong.domain.article.ArticleTag;
 import com.soplong.exception.CustomException;
-import com.soplong.service.ArticleTagService;
+import com.soplong.service.article.ArticleTagService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +14,11 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
 
     @Override
     @Transactional
-    public void add(ArticleTag articleTag) {
+    public void addTag(ArticleTag articleTag) {
         try {
-            this.add(articleTag);
+            this.save(articleTag);
         } catch (Exception e) {
+            log.error("保存标签失败:{}",e);
             throw new CustomException("保存失败!");
         }
     }

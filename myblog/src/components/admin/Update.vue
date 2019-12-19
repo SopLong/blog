@@ -178,7 +178,7 @@ export default {
     this.context = this.draft.summary;
     this.username = sessionStorage.getItem("username");
     this.axios
-      .get("/api/admin/getTagAll")
+      .get("/api/article/tag/getTagAll")
       .then(response => {
         let data = response.data;
         this.options = data;
