@@ -38,7 +38,7 @@ public class ArticleInfoController extends BaseController {
      */
     @GetMapping("back/getBackArticle")
     public ResultData getBackArticle() {
-        Map<String, Object> reqMap = getRequestParams();
+        Map<String, String> reqMap = getRequestParamsStr();
         Page articleList = articleInfoService.getBackArticle(reqMap, getPage());
         return new ResultData(articleList);
     }

@@ -21,12 +21,12 @@
 
     <select id="getBackArticle" parameterType="map" resultType="com.soplong.domain.article.ArticleInfo">
        SELECT * FROM `article_info` where del_flag = 0
-<!--       <if test="title != null and title != ''">-->
-<!--           AND title = #{title}-->
-<!--       </if>-->
-<!--       <if test="starttime != null and starttime != ''">-->
-<!--           AND createtime between #{starttime} and #{endtime}-->
-<!--       </if>-->
+       <if test="title != null and title != ''">
+           AND title = #{title}
+       </if>
+       <if test="starttime != null and starttime != ''">
+           AND createtime between #{starttime} and #{endtime}
+       </if>
     </select>
 
 </mapper>

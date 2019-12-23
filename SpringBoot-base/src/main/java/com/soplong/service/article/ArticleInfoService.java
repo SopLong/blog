@@ -36,5 +36,5 @@ public interface ArticleInfoService extends IService<ArticleInfo> {
      * @param page
      * @return
      */
-    Page getBackArticle(Map<String, Object> reqMap, Page page);
+    Page getBackArticle(Map<String, String> reqMap, Page page);
 }

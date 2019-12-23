@@ -34,7 +34,7 @@ public class ArticleInfoServiceImpl extends ServiceImpl<ArticleInfoMapper, Artic
     }
 
     @Override
-    public Page getBackArticle(Map<String, Object> reqMap, Page page) {
+    public Page getBackArticle(Map<String, String> reqMap, Page page) {
         page.setRecords(articleInfoMapper.getBackArticle(reqMap,page));
         return page;
     }

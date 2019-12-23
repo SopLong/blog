@@ -13,5 +13,5 @@ public interface ArticleInfoMapper extends BaseMapper<ArticleInfo> {
 
     ArticleDetailVO getArticleDetail(int articleId);
 
-    List<ArticleInfo> getBackArticle(Map<String, Object> reqMap, Page page);
+    List<ArticleInfo> getBackArticle(Map<String, String> reqMap, Page page);
 }

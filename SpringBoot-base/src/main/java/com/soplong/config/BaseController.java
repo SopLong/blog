@@ -29,6 +29,19 @@ public class BaseController {
         return map;
     }
 
+    public Map<String, String> getRequestParamsStr() {
+        Map<String, String> map = new HashMap<>();
+        Enumeration<String> parameterNames = request.getParameterNames();
+        if (null != parameterNames) {
+            while (parameterNames.hasMoreElements()) {
+                String key = parameterNames.nextElement();
+                String value = request.getParameter(key);
+                map.put(key, value);
+            }
+        }
+        return map;
+    }
+
     public Page getPage() {
         Page page = new Page();
         page.setCurrent(Long.parseLong(request.getParameter("currentPage")));
