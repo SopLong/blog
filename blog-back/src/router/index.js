@@ -27,6 +27,12 @@ export const asyncRoutes = {
         meta: { title: '主页' },
         component: () => import('../views/Home.vue'),
     },
+    article: {
+        path: 'article',
+        name: 'article',
+        meta: { title: '博文列表' },
+        component: () => import('../views/ArticleList.vue'),
+    },
     t1: {
         path: 't1',
         name: 't1',

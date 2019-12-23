@@ -32,4 +32,10 @@ public class ArticleInfoServiceImpl extends ServiceImpl<ArticleInfoMapper, Artic
     public void addArticle(ArticleDetailVO articleDetailVO) {
 
     }
+
+    @Override
+    public Page getBackArticle(Map<String, Object> reqMap, Page page) {
+        page.setRecords(articleInfoMapper.getBackArticle(reqMap,page));
+        return page;
+    }
 }
