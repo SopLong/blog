@@ -52,7 +52,7 @@
 		methods:{
 			getArticleDetail(){
 				//包含参数的情况一
-				this.$axios.get(`/api/article/info/articleDetail/${this.articleId}`, {
+				this.$axios.get(`/api/article/info/front/articleDetail/${this.articleId}`, {
 				}).then(response => {
 					this.articleForm = response.data.data
 					

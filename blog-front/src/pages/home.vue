@@ -76,7 +76,7 @@
 		methods:{
 			articleList(){
 				//包含参数的情况一
-				this.$axios.get('/api/article/info/getArticleList', {
+				this.$axios.get('/api/article/info/front/getArticleList', {
 					params: {
 						currentPage:this.currentPage,
 						pageSize:this.pageSize

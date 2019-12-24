@@ -13,6 +13,7 @@
         FROM
             article_info a
             JOIN article_content c ON c.article_id = a.id
+            AND c.del_flag = 0
         WHERE
             a.del_flag = 0
             AND a.id = #{articleId}
@@ -21,12 +22,25 @@
 
     <select id="getBackArticle" parameterType="map" resultType="com.soplong.domain.article.ArticleInfo">
        SELECT * FROM `article_info` where del_flag = 0
-       <if test="title != null and title != ''">
-           AND title = #{title}
+       <if test="map.title != null and map.title != ''">
+           AND title = #{map.title}
        </if>
-       <if test="starttime != null and starttime != ''">
-           AND createtime between #{starttime} and #{endtime}
+       <if test="map.starttime != null and map.starttime != ''">
+           AND createtime between #{map.starttime} and #{map.endtime}
        </if>
+    </select>
+
+    <select id="articleBackDetail" resultType="com.soplong.domain.article.vo.ArticleDetailVO">
+        SELECT
+            a.*,
+            c.content
+        FROM
+            article_info a
+            JOIN article_content c ON c.article_id = a.id
+            AND c.del_flag = 0
+        WHERE
+            a.del_flag = 0
+            AND a.id = #{articleId}
     </select>
 
 </mapper>

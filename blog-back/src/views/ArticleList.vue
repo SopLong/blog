@@ -1,6 +1,6 @@
 <template>
  <div class="pageFullScreen">
-    <ArticleEditForm ref="ArticleEditForm"></ArticleEditForm>
+    <ArticleEditForm ref="ArticleEditForm" @freshTable="freshTable()"></ArticleEditForm>
     <el-form ref="form" :inline="true" :model="form" style="margin-left:10px">
         <el-form-item label="标题">
             <el-input v-model="form.title"></el-input>
@@ -19,6 +19,7 @@
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="search()">查询</el-button>
+            <el-button type="primary" @click="add()">新增</el-button>
         </el-form-item>
     </el-form>
     <el-table
@@ -73,7 +74,7 @@ export default {
     components: { ArticleEditForm },
     data() {
         return {
-            form: {},
+            form: { title: '' },
             pageSize: 10,
             totalSize: 1,
             currentPage: 1,
@@ -124,6 +125,9 @@ export default {
                 }
             })
         },
+        freshTable() {
+            this.getTableList()
+        },
         // 删除博文
         delArticle(articleId) {
             this.$confirm('此操作将永久删除该条数据, 是否继续?', '提示', {
@@ -147,7 +151,10 @@ export default {
             })
         },
         editArticle(row) {
-            this.$refs.ArticleEditForm.open(row)
+            this.$refs.ArticleEditForm.open(1, row)
+        },
+        add() {
+            this.$refs.ArticleEditForm.open(0)
         },
     },
 }

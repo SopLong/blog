@@ -17,4 +17,16 @@ public class ArticleDetailVO extends ArticleInfo {
      * 标签
      */
     private List<Integer> tags;
+
+    /**
+     * 是否发布
+     */
+    private boolean postFlag;
+
+    public boolean isPostFlag() {
+        if(super.getIsPost() == 0){
+            return false;
+        }
+        return true;
+    }
 }

@@ -21,12 +21,24 @@ export default {
             content: '',
             editorOption: {
                 theme: 'snow',
-                // modules: {
-                //     toolbar: [
-                //         ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-                //         ['blockquote', 'code-block'],
-                //     ],
-                // },
+                imageResize: {},
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'], // 加粗，斜体，下划线，删除线
+                        ['blockquote', 'code-block'], // 引用，代码块
+                        [{ header: 1 }, { header: 2 }], // 几级标题
+                        [{ list: 'ordered' }, { list: 'bullet' }], // 有序列表，无序列表
+                        [{ script: 'sub' }, { script: 'super' }], // 下角标，上角标
+                        [{ indent: '-1' }, { indent: '+1' }], // 缩进
+                        [{ direction: 'rtl' }], // 文字输入方向
+                        [{ size: ['small', false, 'large', 'huge'] }], // 字体大小
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+                        [{ color: [] }, { background: [] }], // 颜色选择
+                        [{ font: [] }], // 字体
+                        [{ align: [] }], // 居中
+                        ['clean'], // 清除样式
+                    ],
+                },
             },
         }
     },
@@ -46,6 +58,9 @@ export default {
         },
         resetContent() {
             this.$set(this, 'content', '')
+        },
+        setContent(content) {
+            this.$set(this, 'content', content)
         },
     },
 }

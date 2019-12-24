@@ -5,14 +5,8 @@ import com.soplong.domain.article.ArticleTag;
 
 public interface ArticleTagService extends IService<ArticleTag> {
     /**
-     * 新增标签
-     * @param articleTag
+     * 删除标签信息
+     * @param id
      */
-    void addTag(ArticleTag articleTag);
-
-    /**
-     * 删除标签
-     * @param tagId
-     */
-    void delTag(int tagId);
+    void delTags(Integer id);
 }

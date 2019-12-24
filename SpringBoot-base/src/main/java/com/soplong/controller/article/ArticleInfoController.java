@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.soplong.config.BaseController;
 import com.soplong.config.ResultData;
 import com.soplong.domain.article.ArticleInfo;
+import com.soplong.domain.article.dto.ArticleDTO;
 import com.soplong.domain.article.vo.ArticleDetailVO;
 import com.soplong.exception.CustomException;
 import com.soplong.service.article.ArticleInfoService;
@@ -49,21 +50,44 @@ public class ArticleInfoController extends BaseController {
      * @param articleId 博客ID
      * @return
      */
-    @GetMapping("articleDetail/{articleId}")
+    @GetMapping("front/articleDetail/{articleId}")
     public ResultData articleDetail(@PathVariable int articleId) {
         ArticleDetailVO articleDetail = articleInfoService.getArticleDetail(articleId);
         return new ResultData(articleDetail);
     }
 
     /**
+     * 获取博客详情
+     *
+     * @param articleId 博客ID
+     * @return
+     */
+    @GetMapping("back/articleDetail/{articleId}")
+    public ResultData articleBackDetail(@PathVariable int articleId) {
+        ArticleDetailVO articleDetail = articleInfoService.articleBackDetail(articleId);
+        return new ResultData(articleDetail);
+    }
+
+    /**
      * 新建博文
      *
-     * @param articleDetailVO
+     * @param articleDTO
      * @return
      */
     @PostMapping("add")
-    public ResultData addArticle(@RequestBody ArticleDetailVO articleDetailVO) {
-        articleInfoService.addArticle(articleDetailVO);
+    public ResultData addArticle(@RequestBody ArticleDTO articleDTO) {
+        articleInfoService.addArticle(articleDTO);
+        return new ResultData();
+    }
+
+    /**
+     * 编辑博文
+     * @param articleDTO
+     * @return
+     */
+    @PutMapping("edit")
+    public ResultData editArticle(@RequestBody ArticleDTO articleDTO){
+        articleInfoService.editArticle(articleDTO);
         return new ResultData();
     }
 

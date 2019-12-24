@@ -33,6 +33,12 @@ export const asyncRoutes = {
         meta: { title: '博文列表' },
         component: () => import('../views/ArticleList.vue'),
     },
+    tag: {
+        path: 'tag',
+        name: 'tag',
+        meta: { title: '标签' },
+        component: () => import('../views/TagList.vue'),
+    },
     t1: {
         path: 't1',
         name: 't1',

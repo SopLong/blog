@@ -50,8 +50,14 @@ const store = new Vuex.Store({
             {
                 name: 'article', // 要跳转的路由名称 不是路径
                 size: 18, // icon大小
-                type: 'md-home', // icon类型
+                // type: 'md-home', // icon类型
                 text: '博文列表', // 文本内容
+            },
+            {
+                name: 'tag', // 要跳转的路由名称 不是路径
+                size: 18, // icon大小
+                // type: 'md-home', // icon类型
+                text: '标签列表', // 文本内容
             },
         ],
     },

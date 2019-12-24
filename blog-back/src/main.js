@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import ViewUI from 'view-design'
 import VueQuillEditor from 'vue-quill-editor'
+import mavonEditor from 'mavon-editor'
 import App from './App'
 import store from './store'
 import router from './router'
@@ -16,11 +17,14 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
+import 'mavon-editor/dist/css/index.css'
+
 
 Vue.config.productionTip = false
 Vue.use(ViewUI)
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
+Vue.use(mavonEditor)
 
 // 设置基础URL
 axios.defaults.baseURL = ''
