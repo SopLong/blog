@@ -26,7 +26,6 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <!-- <richTextForm ref="richText"></richTextForm> -->
             <mavon-editor v-model="articleForm.content"/>
             <el-form-item>
                 <el-button type="primary" @click="save()">Save</el-button>
@@ -36,7 +35,6 @@
  </div>
 </template>
 <script>
-// import richTextForm from '../../components/richTextForm'
 
 export default {
     components: { },
@@ -72,13 +70,9 @@ export default {
         // 关闭弹窗
         closeDialog() {
             this.dialogVisible = false
-            this.$refs.form.resetFields()
-            this.$refs.richText.resetContent()
             this.$emit('freshTable')
         },
         save() {
-            this.$set(this.articleForm, 'content', this.$refs.richText.getContent())
-
             let url
             let method
             if (this.flag === 0) {
