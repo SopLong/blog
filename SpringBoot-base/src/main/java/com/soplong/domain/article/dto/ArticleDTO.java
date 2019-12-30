@@ -13,4 +13,6 @@ public class ArticleDTO extends ArticleInfo implements Serializable {
     private Boolean postFlag;
 
     private List<Integer> tags;
+
+    private String uuid;
 }

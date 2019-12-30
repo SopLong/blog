@@ -40,3 +40,7 @@ spring:
         min-idle: 0
 #    连接超时时间（毫秒）
     timeout: 1000
+
+base_attachment_httpPath: "http://10.19.1.61/"
+base_attachment_filePath: "D:\\file\\"
+base_attachment_separator: "\\"

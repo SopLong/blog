@@ -26,7 +26,23 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <mavon-editor v-model="articleForm.content"/>
+            <el-form-item label="封面">
+                <el-upload
+                    :action="Upload.url"
+                    :data="Upload.params"
+                    :limit="1"
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-success="uploadSuccess"
+                    :file-list="editFiles"
+                    :on-remove="handleRemove">
+                    <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogPicVisible" :modal="false">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+            </el-form-item>
+            <mavon-editor v-model="articleForm.content" @change="getHtmlContent"/>
             <el-form-item>
                 <el-button type="primary" @click="save()">Save</el-button>
             </el-form-item>
@@ -45,12 +61,43 @@ export default {
             editorOption: {},
             dynamicTags: [],
             flag: '',
+            dialogImageUrl: '',
+            editFiles: [], // 编辑时已上传图片初始化
+            dialogPicVisible: false,
+            Upload: {
+                url: 'http://localhost:8080/api/file/upload',
+                params: {
+                    type: 'ARTICLE_PICTURE',
+                },
+            },
         }
     },
     mounted() {
         this.getTagList()
     },
     methods: {
+        uploadSuccess(response, file, fileList) {
+            if (response.code === 200) {
+                this.dialogImageUrl = response.data.httpPath
+                this.articleForm.uuid = response.data.uuid
+            }
+        },
+        handleRemove(file, fileList) {
+            console.log(file, fileList)
+            this.$axios.put(`/api/file/delFile/${file.uuid}`, {
+            }).then(response => {
+
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.response.data.httpPath
+            this.dialogPicVisible = true
+        },
+        getHtmlContent(content, htmlContent) {
+            this.$set(this.articleForm, 'content', htmlContent)
+        },
         open(flag, row) {
             this.flag = flag
             this.dialogVisible = true
@@ -62,7 +109,12 @@ export default {
             this.$axios.get(`/api/article/info/back/articleDetail/${articleId}`, {
             }).then(response => {
                 this.articleForm = response.data
-                this.$refs.richText.setContent(this.articleForm.content)
+                const file = response.data.file
+                this.dialogImageUrl = file.httpPath
+                this.editFiles.push({
+                    name: 'name' + file.uuid,
+                    url: file.httpPath,
+                    uuid: file.uuid })
             }).catch(error => {
                 console.log(error)
             })
@@ -70,17 +122,17 @@ export default {
         // 关闭弹窗
         closeDialog() {
             this.dialogVisible = false
+            this.dialogImageUrl = ''
+            this.editFiles = []
             this.$emit('freshTable')
         },
         save() {
             let url
             let method
             if (this.flag === 0) {
-                console.log('add')
                 url = '/api/article/info/add'
                 method = 'post'
             } else {
-                console.log('edit')
                 url = '/api/article/info/edit'
                 method = 'put'
             }
