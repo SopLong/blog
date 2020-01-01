@@ -10,6 +10,7 @@ import com.soplong.domain.article.ArticleInfo;
 import com.soplong.domain.article.ArticleTag;
 import com.soplong.domain.article.dto.ArticleDTO;
 import com.soplong.domain.article.vo.ArticleDetailVO;
+import com.soplong.domain.article.vo.ArticleListVO;
 import com.soplong.domain.sys.Attachment;
 import com.soplong.exception.CustomException;
 import com.soplong.service.article.ArticleContentService;
@@ -46,7 +47,10 @@ public class ArticleInfoServiceImpl extends ServiceImpl<ArticleInfoMapper, Artic
 
     @Override
     public ArticleDetailVO getArticleDetail(int articleId) {
-        return articleInfoMapper.getArticleDetail(articleId);
+        ArticleDetailVO articleDetail = articleInfoMapper.getArticleDetail(articleId);
+        Attachment file = attachmentService.getOne(new QueryWrapper<Attachment>().eq("del_flag", 0).eq("type", AttachmentType.ARTICLE_COVER.getType()).eq("correlation_id", articleId));
+        articleDetail.setFile(file);
+        return articleDetail;
     }
 
     @Override
@@ -63,6 +67,7 @@ public class ArticleInfoServiceImpl extends ServiceImpl<ArticleInfoMapper, Artic
             ArticleContent articleContent = new ArticleContent();
             articleContent.setArticleId(articleInfo.getId());
             articleContent.setContent(articleDTO.getContent());
+            articleContent.setMdContent(articleDTO.getMdContent());
             articleContentService.save(articleContent);
 
             List<Integer> tags = articleDTO.getTags();
@@ -143,5 +148,10 @@ public class ArticleInfoServiceImpl extends ServiceImpl<ArticleInfoMapper, Artic
             log.error("新建博文失败:", e);
             throw new CustomException("保存失败!");
         }
+    }
+
+    @Override
+    public List<ArticleListVO> archiveTimeLine(Map<String, Object> reqMap) {
+        return articleInfoMapper.archiveTimeLine(reqMap);
     }
 }

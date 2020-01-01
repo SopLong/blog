@@ -5,6 +5,7 @@ import com.soplong.dao.sys.AttachmentMapper;
 import com.soplong.domain.sys.Attachment;
 import com.soplong.exception.CustomException;
 import com.soplong.service.sys.AttachmentService;
+import com.soplong.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -37,10 +39,11 @@ public class AttachmentServiceImpl extends ServiceImpl<AttachmentMapper, Attachm
         try {
             String fileName = file.getOriginalFilename();
             String newFileName = UUID.randomUUID().toString() + "_" + fileName;
-            String filePath = FILE_PHTN + "/" + newFileName;
-            String httpPath = HTTP_PATH + "/" + newFileName;
+            String currentDate = DateUtils.getCurrentDate();
+            String filePath = FILE_PHTN + "/" + currentDate + "/" + newFileName;
+            String httpPath = HTTP_PATH + "/" + currentDate + "/" + newFileName;
             String fileType = fileName.substring(fileName.lastIndexOf("."));
-            File dest = new File(FILE_PHTN + SEPARATOR + newFileName);
+            File dest = new File(FILE_PHTN + SEPARATOR + currentDate + SEPARATOR + newFileName);
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();
             }

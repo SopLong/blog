@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.soplong.domain.article.ArticleInfo;
 import com.soplong.domain.article.dto.ArticleDTO;
 import com.soplong.domain.article.vo.ArticleDetailVO;
+import com.soplong.domain.article.vo.ArticleListVO;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ArticleInfoService extends IService<ArticleInfo> {
@@ -54,4 +56,11 @@ public interface ArticleInfoService extends IService<ArticleInfo> {
      */
     @Transactional(rollbackFor = Exception.class)
     void editArticle(ArticleDTO articleDTO);
+
+    /**
+     * 归档时间线数据
+     * @param reqMap
+     * @return
+     */
+    List<ArticleListVO> archiveTimeLine(Map<String, Object> reqMap);
 }

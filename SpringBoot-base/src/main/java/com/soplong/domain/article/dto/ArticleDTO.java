@@ -10,6 +10,8 @@ import java.util.List;
 public class ArticleDTO extends ArticleInfo implements Serializable {
     private String content;
 
+    private String mdContent;
+
     private Boolean postFlag;
 
     private List<Integer> tags;

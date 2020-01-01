@@ -8,11 +8,18 @@
 						<el-row class="art-info d-flex align-items-center justify-content-start">
 							<div class="art-time"><i class="el-icon-time"></i>：{{article.createtime}}</div>
 							<div class="d-flex align-items-center"><img class="tag" src="../assets/tag.png" />：
-								<el-tag size="mini">swagger2</el-tag>
+								<el-tag
+								style="margin-right:5px"
+								v-for="tag in article.tagNames"
+								:key="tag"
+								type= 'primary'
+								>
+								{{tag}}
+								</el-tag>
 							</div>
 						</el-row>
 						<el-row class="art-body">
-							<div class="side-img hidden-sm-and-down"><img class="art-banner" src="../assets/vue.jpg"></div>
+							<div class="side-img hidden-sm-and-down"><img class="art-banner" :src="article.coverPic"></div>
 							<div class="side-abstract">
 								<div class="art-abstract">
 									{{article.summary}}	
@@ -44,9 +51,9 @@
 				<div class="item">
 					<tag></tag>
 				</div>
-				<div class="item">
+				<!-- <div class="item">
 					<friend></friend>
-				</div>
+				</div> -->
 			</el-col>
 		</el-row>
 
@@ -54,12 +61,11 @@
 </template>
 
 <script>
-	import friend from '../components/friend'
+	// import friend from '../components/friend'
 	import tag from '../components/tag'
 	export default {
 		name: 'home',
 		components: {
-			friend,
 			tag
 		},
 		data(){
@@ -67,7 +73,7 @@
 				currentPage:1,
 				pageSize:10,
 				articles:[],
-				count:1
+				count:1,
 			}
 		},
 		mounted(){

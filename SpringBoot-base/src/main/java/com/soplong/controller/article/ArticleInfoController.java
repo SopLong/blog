@@ -6,11 +6,14 @@ import com.soplong.config.ResultData;
 import com.soplong.domain.article.ArticleInfo;
 import com.soplong.domain.article.dto.ArticleDTO;
 import com.soplong.domain.article.vo.ArticleDetailVO;
+import com.soplong.domain.article.vo.ArticleListVO;
 import com.soplong.exception.CustomException;
 import com.soplong.service.article.ArticleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -106,5 +109,16 @@ public class ArticleInfoController extends BaseController {
         articleInfo.setDelFlag(1);
         articleInfoService.updateById(articleInfo);
         return new ResultData();
+    }
+
+    /**
+     * 归档时间线数据
+     * @return
+     */
+    @GetMapping("archiveTimeLine")
+    public ResultData archiveTimeLine(){
+        Map<String, Object> reqMap = getRequestParams();
+        List<ArticleListVO> articleListVOS = articleInfoService.archiveTimeLine(reqMap);
+        return new ResultData(articleListVOS);
     }
 }

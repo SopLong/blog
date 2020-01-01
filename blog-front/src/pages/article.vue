@@ -2,7 +2,8 @@
 	<div>
 		<el-row class="main" type="flex" justify="center">
 			<el-col :span="16">
-				<div id="artcle-info">
+				<div id="artcle-info" :style="{backgroundImage:'url('+articleForm.file.httpPath+')'}">
+					<!-- :style="{backgroundImage:'url('+articleForm.file.httpPath+')'}" -->
 					<h2 class="text-center"><strong>{{articleForm.title}}</strong></h2>
 					<!-- 描述：文章信息 -->
 					<div class="text-center timeAndView">
@@ -68,7 +69,6 @@
 <style scoped>
 	#artcle-info {
 		padding: 20px;
-		background-image: url(../assets/vue.jpg);
 		margin-bottom: 40px;
 	}
 	
@@ -100,4 +100,5 @@
 		padding: 20px;
 		background-color: #EBEEF5;
 	}
+	
 </style>

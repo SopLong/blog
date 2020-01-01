@@ -12,7 +12,15 @@ public class ArticleContent implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    /**
+     * html格式内容
+     */
     private String content;
+
+    /**
+     * md格式内天
+     */
+    private String mdContent;
 
     private Integer articleId;
 

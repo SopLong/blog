@@ -42,7 +42,7 @@
                     <img width="100%" :src="dialogImageUrl" alt="">
                 </el-dialog>
             </el-form-item>
-            <mavon-editor v-model="articleForm.content" @change="getHtmlContent"/>
+            <mavon-editor v-model="articleForm.mdContent" @change="getHtmlContent" ref=md @imgAdd="$imgAdd" @imgDel="$imgDel"/>
             <el-form-item>
                 <el-button type="primary" @click="save()">Save</el-button>
             </el-form-item>
@@ -61,6 +61,7 @@ export default {
             editorOption: {},
             dynamicTags: [],
             flag: '',
+            htmlContent: '',
             dialogImageUrl: '',
             editFiles: [], // 编辑时已上传图片初始化
             dialogPicVisible: false,
@@ -76,6 +77,28 @@ export default {
         this.getTagList()
     },
     methods: {
+        // 绑定@imgAdd event
+        $imgAdd(pos, file) {
+            console.log(pos)
+            console.log(file)
+            // 第一步.将图片上传到服务器.
+            let formdata = new FormData()
+            formdata.append('images', file)
+            formdata.append('type', 'ARTICLE_CONTENT_PIC')
+            console.log(formdata)
+            this.$axios({
+                url: '/api/file/upload/',
+                method: 'post',
+                data: formdata,
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }).then((res) => {
+                console.log(res)
+                if (res.code === 200) {
+                    // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+                    this.$refs.md.$img2Url(pos, res.data.httpPath)
+                }
+            })
+        },
         uploadSuccess(response, file, fileList) {
             if (response.code === 200) {
                 this.dialogImageUrl = response.data.httpPath
@@ -96,7 +119,7 @@ export default {
             this.dialogPicVisible = true
         },
         getHtmlContent(content, htmlContent) {
-            this.$set(this.articleForm, 'content', htmlContent)
+            this.htmlContent = htmlContent
         },
         open(flag, row) {
             this.flag = flag
@@ -124,6 +147,9 @@ export default {
             this.dialogVisible = false
             this.dialogImageUrl = ''
             this.editFiles = []
+            this.articleForm.htmlContent = ''
+            this.articleForm = { title: '', postFlag: false }
+            this.$refs.form.resetFields()
             this.$emit('freshTable')
         },
         save() {
@@ -136,6 +162,7 @@ export default {
                 url = '/api/article/info/edit'
                 method = 'put'
             }
+            this.$set(this.articleForm, 'content', this.htmlContent)
             const data = this.articleForm
             this.$axios({
                 method,

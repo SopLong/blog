@@ -2,8 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soplong.dao.article.ArticleInfoMapper">
 
-    <select id="articleList" parameterType="map" resultType="com.soplong.domain.article.ArticleInfo">
-        SELECT * FROM `article_info` where del_flag = 0 and is_post = 1
+    <resultMap id="articleListMap" type="com.soplong.domain.article.vo.ArticleListVO">
+        <id column="id" property="id"></id>
+        <result property="title" column="title"></result>
+        <result property="summary" column="summary"></result>
+        <result property="isTop" column="is_top"></result>
+        <result property="traffic" column="traffic"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="updatetime" column="updatetime"></result>
+        <result property="postTime" column="post_time"></result>
+        <result property="coverPic" column="coverPic"></result>
+        <collection property="tagNames" ofType="String">
+            <result column="tag_name"></result>
+        </collection>
+    </resultMap>
+
+    <select id="articleList" parameterType="map" resultMap="articleListMap">
+        SELECT
+            a.id,
+            a.title,
+            a.summary,
+            a.is_top,
+            a.traffic,
+            a.createtime,
+            a.updatetime,
+            a.post_time,
+            t.tag_name,
+            att.http_path as coverPic
+        FROM
+            `article_info` a
+            join article_tag atg
+            on a.id = atg.article_id
+            ANd atg.del_flag = 0
+            join tag_info t
+            on atg.tag_id = t.id
+            and t.del_flag = 0
+            join attachment att
+            on att.correlation_id = a.id
+            and att.type = 'ARTICLE_PICTURE'
+            and a.del_flag = 0
+        WHERE
+            a.del_flag = 0
+            AND a.is_post = 1
+        ORDER BY a.post_time DESC
     </select>
 
     <select id="getArticleDetail" resultType="com.soplong.domain.article.vo.ArticleDetailVO">
@@ -28,12 +69,14 @@
        <if test="map.starttime != null and map.starttime != ''">
            AND createtime between #{map.starttime} and #{map.endtime}
        </if>
+        ORDER BY post_time DESC
     </select>
 
     <select id="articleBackDetail" resultType="com.soplong.domain.article.vo.ArticleDetailVO">
         SELECT
             a.*,
-            c.content
+            c.content,
+            c.md_content
         FROM
             article_info a
             JOIN article_content c ON c.article_id = a.id
@@ -41,6 +84,36 @@
         WHERE
             a.del_flag = 0
             AND a.id = #{articleId}
+    </select>
+
+    <select id="archiveTimeLine" resultMap="articleListMap">
+        SELECT
+            a.id,
+            a.title,
+            a.summary,
+            a.is_top,
+            a.traffic,
+            a.createtime,
+            a.updatetime,
+            a.post_time,
+            t.tag_name,
+            att.http_path as coverPic
+        FROM
+            `article_info` a
+            join article_tag atg
+            on a.id = atg.article_id
+            ANd atg.del_flag = 0
+            join tag_info t
+            on atg.tag_id = t.id
+            and t.del_flag = 0
+            join attachment att
+            on att.correlation_id = a.id
+            and att.type = 'ARTICLE_PICTURE'
+            and a.del_flag = 0
+        WHERE
+            a.del_flag = 0
+            AND a.is_post = 1
+        ORDER BY a.post_time DESC
     </select>
 
 </mapper>

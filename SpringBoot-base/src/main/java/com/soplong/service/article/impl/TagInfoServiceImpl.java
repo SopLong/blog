@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TagInfoServiceImpl extends ServiceImpl<TagInfoMapper, TagInfo> implements TagInfoService {
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addTag(TagInfo articleTag) {
         try {
             this.save(articleTag);

@@ -10,9 +10,14 @@ import java.util.List;
 public class ArticleDetailVO extends ArticleInfo {
 
     /**
-     * 博客内容
+     * html格式博客内容
      */
     private String content;
+
+    /**
+     * md格式博客内容
+     */
+    private String mdContent;
 
     /**
      * 标签

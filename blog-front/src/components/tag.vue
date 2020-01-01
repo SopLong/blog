@@ -6,13 +6,18 @@
 				<span>{{$t('tag.tag')}}</span>
 			</div>
 			<div class="text item">
-				<el-tag size="mini" class="tag-item" @click="tag('Java')">Java[12]</el-tag>
-				<el-tag size="mini" class="tag-item" type="success" @click="tag('SpringBoot')">SpringBoot[8]</el-tag>
-				<el-tag size="mini" class="tag-item" type="info" @click="tag('HTML')">HTML[8]</el-tag>
-				<el-tag size="mini" class="tag-item" type="warning" @click="tag('Mysql')">Mysql[5]</el-tag>
-				<el-tag size="mini" class="tag-item" type="danger" @click="tag('Vue')">Vue[3]</el-tag>
-				<el-tag size="mini" class="tag-item" type="info" @click="tag('jQuery')">jQuery[6]</el-tag>
-				<el-tag size="mini" class="tag-item" type="success" @click="tag('SpringCloud')">SpringCloud[9]</el-tag>
+				
+					<el-tag
+					class="tag-item"
+					v-for="(tag) in tags"
+					:key="tag"
+					type= 'primary'
+					>
+						<router-link :to="{path:  '/archive', query:{tagId:tags.id}}">
+							<i>{{tag.tagName}}</i>
+						</router-link>
+					</el-tag>
+				
 			</div>
 		</el-card>
 	</div>
@@ -21,12 +26,30 @@
 <script>
 	export default {
 		name: 'tag',
+		data(){
+			return{
+				tags:[]
+			}
+		},
+		mounted(){
+			this.getTags()
+		},
 		methods: {
-			tag(name) {
+			getTags(){
+				this.$axios.get('/api/article/tag/getTagAll', {
+				}).then(response => {
+					this.tags = response.data.data	
+				}).catch(error => {
+					console.log(error)
+				})
+			},
+			tag(id) {
+				console.log(111111111)
+				console.log(id)
 				this.$router.push({
-					name: 'tag',
+					name: 'archive',
 					params: {
-						'name': name
+						'name': id
 					}
 				});
 			}
